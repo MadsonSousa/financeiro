@@ -7,19 +7,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.madsonss.financeiro.domain.Categoria;
-import com.madsonss.financeiro.services.CategoriaService;
+import com.madsonss.financeiro.domain.Financeiro;
+import com.madsonss.financeiro.services.FinanceiroService;
 
 @RestController
-@RequestMapping(value="/categorias")
-public class CategoriaResource {
+@RequestMapping(value="/financeiros")
+public class FinanceiroResource {
 	
 	@Autowired	
-	private CategoriaService service;
+	private FinanceiroService service;
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<?> find(@PathVariable Integer id) {		
-		Categoria obj = service.find(id);
+		Financeiro obj = service.find(id);
 		return ResponseEntity.ok().body(obj);
 	}
 
