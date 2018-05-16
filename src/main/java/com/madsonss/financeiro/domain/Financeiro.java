@@ -3,6 +3,7 @@ package com.madsonss.financeiro.domain;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,31 +17,36 @@ public class Financeiro implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="id_financeiro")
 	private Integer id;
-	private Date dt_lancamento;
-	private Date dt_documento;
-	private Date dt_vencimento;
-	private Date dt_pagamento;
+	private Date dtLancamento;
+	private Date dtDocumento;
+	private Date dtVencimento;
+	private Date dtPagamento;
 	private String descricao;
 	@ManyToOne
-	@JoinColumn(name="id_categoria")
+	@JoinColumn(name="id_categoria", nullable=false)
 	private Categoria categoria;
+	@ManyToOne
+	@JoinColumn(name="id_forma_pagamento", nullable=false)
+	private FormaPagamento formaPagamento;
 	private Double valor;
 	
 	public Financeiro() {
 	}
 
-	public Financeiro(Integer id, Date dt_lancamento, Date dt_documento, Date dt_vencimento, Date dt_pagamento, String descricao, Double valor,
-			Categoria categoria) {
+	public Financeiro(Integer id, Date dtLancamento, Date dtDocumento, Date dtVencimento, Date dtPagamento, String descricao, Double valor,
+			Categoria categoria, FormaPagamento formaPagamento) {
 		super();
 		this.id = id;
-		this.dt_lancamento = dt_lancamento;
-		this.dt_documento = dt_documento;
-		this.dt_vencimento = dt_vencimento;
-		this.dt_pagamento = dt_pagamento;
+		this.dtLancamento = dtLancamento;
+		this.dtDocumento = dtDocumento;
+		this.dtVencimento = dtVencimento;
+		this.dtPagamento = dtPagamento;
 		this.descricao = descricao;
 		this.valor = valor;
 		this.categoria = categoria;
+		this.formaPagamento = formaPagamento;
 	}
 
 	public Integer getId() {
@@ -52,35 +58,35 @@ public class Financeiro implements Serializable {
 	}
 
 	public Date getDt_lancamento() {
-		return dt_lancamento;
+		return dtLancamento;
 	}
 
-	public void setDt_lancamento(Date dt_lancamento) {
-		this.dt_lancamento = dt_lancamento;
+	public void setDt_lancamento(Date dtLancamento) {
+		this.dtLancamento = dtLancamento;
 	}
 
 	public Date getDt_documento() {
-		return dt_documento;
+		return dtDocumento;
 	}
 
-	public void setDt_documento(Date dt_documento) {
-		this.dt_documento = dt_documento;
+	public void setDt_documento(Date dtDocumento) {
+		this.dtDocumento = dtDocumento;
 	}
 
 	public Date getDt_vencimento() {
-		return dt_vencimento;
+		return dtVencimento;
 	}
 
-	public void setDt_vencimento(Date dt_vencimento) {
-		this.dt_vencimento = dt_vencimento;
+	public void setDt_vencimento(Date dtVencimento) {
+		this.dtVencimento = dtVencimento;
 	}
 
 	public Date getDt_pagamento() {
-		return dt_pagamento;
+		return dtPagamento;
 	}
 
-	public void setDt_pagamento(Date dt_pagamento) {
-		this.dt_pagamento = dt_pagamento;
+	public void setDt_pagamento(Date dtPagamento) {
+		this.dtPagamento = dtPagamento;
 	}
 
 	public String getDescricao() {
@@ -105,6 +111,14 @@ public class Financeiro implements Serializable {
 
 	public void setValor(Double valor) {
 		this.valor = valor;
+	}
+	
+	public FormaPagamento getFormaPagamento() {
+		return formaPagamento;
+	}
+
+	public void setFormaPagamento(FormaPagamento formaPagamento) {
+		this.formaPagamento = formaPagamento;
 	}
 
 	@Override
