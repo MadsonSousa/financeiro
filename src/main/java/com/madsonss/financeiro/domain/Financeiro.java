@@ -3,21 +3,35 @@ package com.madsonss.financeiro.domain;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+@Entity
 public class Financeiro implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	private Date dt_lancamento;
 	private Date dt_documento;
 	private Date dt_vencimento;
 	private Date dt_pagamento;
 	private String descricao;
+	@ManyToOne
+	@JoinColumn(name="id_categoria")
+	private Categoria categoria;
 	private Double valor;
 	
 	public Financeiro() {
 	}
 
-	public Financeiro(Integer id, Date dt_lancamento, Date dt_documento, Date dt_vencimento, Date dt_pagamento, String descricao, Double valor) {
+	public Financeiro(Integer id, Date dt_lancamento, Date dt_documento, Date dt_vencimento, Date dt_pagamento, String descricao, Double valor,
+			Categoria categoria) {
 		super();
 		this.id = id;
 		this.dt_lancamento = dt_lancamento;
@@ -26,6 +40,7 @@ public class Financeiro implements Serializable {
 		this.dt_pagamento = dt_pagamento;
 		this.descricao = descricao;
 		this.valor = valor;
+		this.categoria = categoria;
 	}
 
 	public Integer getId() {
@@ -74,6 +89,14 @@ public class Financeiro implements Serializable {
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+
+	public Categoria getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
 	}
 
 	public Double getValor() {
